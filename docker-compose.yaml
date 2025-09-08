@@ -1,30 +1,27 @@
 services:
-  e-suggestion-frontend:
-    container_name: e-suggestion-frontend
-    image: e-suggestion-frontend
+  ideas-management-frontend:
+    container_name: ideas-management-frontend
+    image: ideas-management-frontend
     ports:
-      - '81:80'
+      - '8080:80'
     depends_on:
-      - e-suggestion-backend
+      - ideas-management-backend
     networks:
-      - e_suggestion_network
+      - ideas_management_network
 
-  e-suggestion-backend:
-    container_name: e-suggestion-backend
-    image: e-suggestion-backend
+  ideas-management-backend:
+    container_name: ideas-management-backend
+    image: ideas-management-backend
     ports:
-      - '8001:8000'
-    volumes:
-      - e_suggestion_static_data:/app/static
-      - .env:/app/.env
+      - '8001:80'
     depends_on:
-      e-suggestion-sqlserver:
+      ideas-management-db:
         condition: service_healthy
     networks:
-      - e_suggestion_network
+      - ideas_management_network
 
-  e-suggestion-sqlserver:
-    container_name: e-suggestion-sqlserver
+  ideas-management-db:
+    container_name: ideas-management-db
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       - ACCEPT_EULA=Y
@@ -32,9 +29,9 @@ services:
     ports:
       - "1434:1433"
     volumes:
-      - e_suggestion_sqlserver_data:/var/opt/mssql
+      - ideas_management_db_data:/var/opt/mssql
     networks:
-      - e_suggestion_network
+      - ideas_management_network
     healthcheck:
       test: [ "CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P ${DB_PASSWORD} -N -C -Q 'SELECT 1'" ]
       interval: 10s
@@ -44,12 +41,10 @@ services:
 
 
 volumes:
-  e_suggestion_static_data:
-    name: e_suggestion_static_data
-  e_suggestion_sqlserver_data:
-    name: e_suggestion_sqlserver_data
+  ideas_management_db_data:
+    name: ideas_management_db_data
 
 networks:
-  e_suggestion_network:
-    name: e_suggestion_network
+  ideas_management_network:
+    name: ideas_management_network
     driver: bridge
