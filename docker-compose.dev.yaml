@@ -1,0 +1,53 @@
+services:
+  ideas-management-frontend:
+    container_name: ideas-management-frontend
+    build:
+      context: ./frontend
+    image: ideas-management-frontend
+    ports:
+      - '8080:80'
+    depends_on:
+      - ideas-management-backend
+    networks:
+      - ideas_management_network
+
+  ideas-management-backend:
+    container_name: ideas-management-backend
+    build:
+      context: ./backend/API
+    image: ideas-management-backend
+    ports:
+      - '8081:80'
+    depends_on:
+      ideas-management-db:
+        condition: service_healthy
+    networks:
+      - ideas_management_network
+
+  ideas-management-db:
+    container_name: ideas-management-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "1434:1433"
+    volumes:
+      - ideas_management_db_data:/var/opt/mssql
+    networks:
+      - ideas_management_network
+    healthcheck:
+      test: [ "CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P ${DB_PASSWORD} -N -C -Q 'SELECT 1'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  ideas_management_db_data:
+    name: ideas_management_db_data
+
+networks:
+  ideas_management_network:
+    name: ideas_management_network
+    driver: bridge

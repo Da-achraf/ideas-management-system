@@ -1,0 +1,55 @@
+services:
+  e-suggestion-frontend:
+    container_name: e-suggestion-frontend
+    image: e-suggestion-frontend
+    ports:
+      - '81:80'
+    depends_on:
+      - e-suggestion-backend
+    networks:
+      - e_suggestion_network
+
+  e-suggestion-backend:
+    container_name: e-suggestion-backend
+    image: e-suggestion-backend
+    ports:
+      - '8001:8000'
+    volumes:
+      - e_suggestion_static_data:/app/static
+      - .env:/app/.env
+    depends_on:
+      e-suggestion-sqlserver:
+        condition: service_healthy
+    networks:
+      - e_suggestion_network
+
+  e-suggestion-sqlserver:
+    container_name: e-suggestion-sqlserver
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "1434:1433"
+    volumes:
+      - e_suggestion_sqlserver_data:/var/opt/mssql
+    networks:
+      - e_suggestion_network
+    healthcheck:
+      test: [ "CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P ${DB_PASSWORD} -N -C -Q 'SELECT 1'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+
+volumes:
+  e_suggestion_static_data:
+    name: e_suggestion_static_data
+  e_suggestion_sqlserver_data:
+    name: e_suggestion_sqlserver_data
+
+networks:
+  e_suggestion_network:
+    name: e_suggestion_network
+    driver: bridge
