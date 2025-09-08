@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+bower_components/
+
+# Build output
+dist/
+build/
+tmp/
+temp/
+
+# Angular cache
+.angular/
+.angular/cache/
+
+# Testing
+coverage/
+*.log
+
+# IDE/editor stuff
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Git / config
+.git/
+.gitignore
+.gitattributes
+
+# Environment files (only if not needed inside container)
+*.env
+environment.*.ts
+
+# OS junk
+[Tt]humbs.db
+.DS_Store
+
+Screens
+Dockerfile
+nginx.conf

@@ -1,0 +1,44 @@
+# .NET build artifacts
+bin/
+obj/
+out/
+
+# User-specific files
+*.swp
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio / Rider
+.vs/
+.idea/
+
+# Build results
+[Ll]og/
+[Ll]ogs/
+TestResults/
+
+# Docker
+docker-compose.override.yml
+
+# Git / config
+.git/
+.gitignore
+.gitattributes
+
+# Environment / secrets
+*.env
+*.secrets.json
+
+# OS junk
+[Tt]humbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+appsettings.Development.json
+appsettings.Example.json
+
+Dockerfile
