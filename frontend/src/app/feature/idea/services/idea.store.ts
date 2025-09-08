@@ -115,7 +115,7 @@ export const IdeaStore = signalStore(
           const updatedIdeaResponse = await ideaService.updateIdea({
             ...ideaBody,
           });
-          let updatedIdea = updatedIdeaResponse.data as Idea;
+          let updatedIdea = updatedIdeaResponse as Idea;
 
           patchState(store, setEntity(updatedIdea as Idea));
           _showSuccess('Updated successfully.');
@@ -163,7 +163,7 @@ export const IdeaStore = signalStore(
         _saveFilterToLocalStorage(f);
         patchState(store, { ideasFilter: f });
       },
-    })
+    }),
   ),
 
   withHooks(({ localStorage, setIdeasFilter }) => ({
@@ -171,7 +171,7 @@ export const IdeaStore = signalStore(
       const savedFilter = localStorage.getItem(IDEAS_FILTER_TOKEN);
       if (savedFilter) setIdeasFilter(savedFilter);
     },
-  }))
+  })),
 );
 
 export type IdeaStoreType = InstanceType<typeof IdeaStore>;
