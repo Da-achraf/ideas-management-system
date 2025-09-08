@@ -6,6 +6,10 @@ This project demonstrates backend and frontend integration, containerized with D
 
 ---
 
+## 📱 Application Preview
+Screenshots of the application interface are available in the frontend/ directory root, providing a visual overview of the implemented UI/UX features and user flows.
+
+
 ## 🏗️ Architecture Overview
 
 ### Backend
