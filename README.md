@@ -4,7 +4,6 @@ A small full-stack application built with **.NET 9 (Web API)**, **Angular (TypeS
 
 This project demonstrates backend and frontend integration, containerized with Docker for easy local setup.
 
----
 
 ## 📱 Application Preview
 Screenshots of the application interface are available in the frontend/ directory root, providing a visual overview of the implemented UI/UX features and user flows.
@@ -65,7 +64,6 @@ Screenshots of the application interface are available in the frontend/ director
 - **Styling**
   - TailwindCSS for fast and consistent design.
 
----
 
 ## ⚡ Prerequisites
 
@@ -73,7 +71,6 @@ Screenshots of the application interface are available in the frontend/ director
 - Node.js (if running frontend locally, optional)
 - .NET 9 SDK (if running backend locally, optional)
 
----
 
 ## 🚀 Getting Started (with Docker)
 
