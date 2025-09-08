@@ -1,0 +1,108 @@
+@if (idea(); as idea) {
+  <div id="style-4" [dir]="translationService.dir()">
+    <div class="mx-auto flex max-w-[80rem] flex-col gap-y-5 p-4">
+      <div
+        class="flex flex-col gap-y-2 py-2 sm:flex-row sm:items-center sm:justify-end"
+      >
+        @if (id(); as id) {
+          <div
+            class="flex flex-wrap items-center justify-center gap-3 sm:justify-start"
+          >
+            <ba-button
+              [label]="'save-changes' | translate"
+              [isLoading]="store.isUpdating()"
+              icon="fa-bookmark"
+              [disabled]="!form.valid || !form.dirty"
+              buttonClass="text-sm border border-gray-400 bg-primary-200 hover:bg-primary text-gray-50"
+              (onClick)="onSaveChanges()"
+            />
+            <ba-button
+              [label]="'delete-idea' | translate"
+              [isLoading]="store.isDeleting()"
+              icon="fa-trash"
+              buttonClass="text-sm bg-red-50 ring-red-400 text-red-500 border border-red-100 hover:border-red-300 hover:bg-red-100"
+              (onClick)="delete(id)"
+            ></ba-button>
+          </div>
+        }
+      </div>
+
+      @defer {
+        <form
+          [formGroup]="form"
+          class="flex flex-col gap-4 gap-x-[5vw] md:flex-row md:items-start"
+        >
+          <div class="mb-3 flex flex-1 flex-col gap-y-10">
+            <div class="flex flex-col gap-y-2">
+              <div class="flex items-center gap-x-2">
+                <span
+                  class="text-sm font-semibold uppercase tracking-wide text-primary"
+                  >{{ "idea-title" | translate }}</span
+                >
+                <span class="h-[.4px] flex-1 bg-gray-300"></span>
+              </div>
+              <ba-input [control]="form.controls.title">
+                <input
+                  type="text"
+                  formControlName="title"
+                  [placeholder]="'idea-title-placeholder' | translate"
+                />
+              </ba-input>
+            </div>
+
+            <div class="flex flex-col gap-y-2">
+              <div class="flex items-center gap-x-2">
+                <span
+                  class="text-sm font-semibold uppercase tracking-wide text-primary"
+                  >{{ "idea-description" | translate }}</span
+                >
+                <span class="h-[.4px] flex-1 bg-gray-300"></span>
+              </div>
+              <ba-editor
+                formControlName="description"
+                [placeholder]="'idea-description-placeholder' | translate"
+              />
+            </div>
+          </div>
+
+          <div class="w-full md:w-[40%] lg:w-5/12">
+            <div class="flex flex-col gap-y-2">
+              <div class="flex items-center gap-x-2">
+                <span
+                  class="text-sm font-semibold uppercase tracking-wide text-primary"
+                  >{{ "category" | translate }}</span
+                >
+                <span class="h-[.4px] flex-1 bg-gray-300"></span>
+              </div>
+              <p-select
+                [options]="categories()"
+                formControlName="category"
+                [optionValue]="'id'"
+                [optionLabel]="'label'"
+                [filter]="true"
+                [showClear]="true"
+                [placeholder]="'select-category' | translate"
+                class="flex-1"
+              >
+                <ng-template #selectedItem let-selectedOption>
+                  <div class="flex items-center gap-2">
+                    <div>{{ selectedOption.label | titlecase }}</div>
+                  </div>
+                </ng-template>
+                <ng-template let-category #item>
+                  <div class="flex items-center gap-2">
+                    <div>{{ category.name | titlecase }}</div>
+                  </div>
+                </ng-template>
+              </p-select>
+            </div>
+          </div>
+        </form>
+      } @placeholder (minimum 500ms) {
+        <div class="p-10 text-center">
+          <ba-loading />
+        </div>
+      }
+    </div>
+  </div>
+}

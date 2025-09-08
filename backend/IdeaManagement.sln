@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36408.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaManagement", "API\IdeaManagement.csproj", "{331A6A93-A2E5-4497-9692-E003638D07DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{331A6A93-A2E5-4497-9692-E003638D07DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{331A6A93-A2E5-4497-9692-E003638D07DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{331A6A93-A2E5-4497-9692-E003638D07DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{331A6A93-A2E5-4497-9692-E003638D07DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8894C44-9880-4721-91A6-F4AE6F816B65}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,83 @@
+<div class="mx-auto max-w-[80rem] p-10">
+  <ba-generic-table
+    [data]="store.entities()"
+    [total]="store.total()"
+    [columns]="columns()"
+    [globalFilterFields]="[]"
+    [loading]="store.isLoading()"
+    [withCreate]="store.withIdeaCreate()"
+    (page)="store.setPage($event)"
+    (pageSize)="store.setPageSize($event)"
+    (filter)="onFilter($event)"
+    (create)="onCreate()"
+    (search)="store.setQueryParams({ search: $event })"
+    (sort)="onSort($event)"
+  >
+    <ng-template #titleTemplate let-idea>
+      <span [title]="idea.title">
+        {{ idea.title | truncate: 22 }}
+      </span>
+    </ng-template>
+
+    <ng-template #sumbitterTemplate let-idea>
+      <div class="flex items-center gap-x-2">
+        <span>{{ idea.submitterName | titlecase }}</span>
+      </div>
+    </ng-template>
+
+    <ng-template #statusTemplate let-idea>
+      <ba-idea-status [status]="0" />
+    </ng-template>
+
+    <ng-template #categoryTemplate let-idea>
+      <span class="font-medium italic">{{
+        idea.category | categoryname
+      }}</span>
+    </ng-template>
+
+    <ng-template #departmentTemplate let-idea>
+      <span class="font-medium italic">{{
+        idea.department.name | titlecase
+      }}</span>
+    </ng-template>
+
+    <ng-template #actionsTemplate let-idea>
+      <td class="actions flex items-center text-gray-400">
+        <button
+          [matTooltip]="'edit' | translate"
+          matTooltipPosition="above"
+          matTooltipShowDelay="500"
+          class="rounded-md p-2 transition-all duration-150 hover:bg-blue-50 hover:text-primary-200"
+          (click)="onEdit(idea.id)"
+        >
+          <i class="fa-solid fa-edit"></i>
+        </button>
+        <button
+          [matTooltip]="'delete' | translate"
+          matTooltipPosition="above"
+          matTooltipShowDelay="500"
+          class="rounded-md p-2 transition-all duration-150 hover:bg-red-50 hover:text-red-400"
+          (click)="store.showDeleteIdeaDialog(idea.id)"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+        <button
+          [matTooltip]="'view-details' | translate"
+          matTooltipPosition="above"
+          matTooltipShowDelay="500"
+          class="rounded-md p-2 transition-all duration-150 hover:bg-teal-50 hover:text-primary-200"
+          (click)="onView(idea.id)"
+        >
+          <i class="fa-solid fa-eye"></i>
+        </button>
+      </td>
+    </ng-template>
+
+    <ba-radio-filter
+      class="additional-filters"
+      [options]="ideasFilterOptions"
+      (optionSelected)="store.setIdeasFilter($event)"
+      [initialSelected]="store.ideasFilter()"
+    />
+  </ba-generic-table>
+</div>
