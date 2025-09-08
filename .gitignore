@@ -19,6 +19,10 @@ Release/
 [Rr]eleasePS/
 dlldata.c
 
+appsettings.json
+appsettings.Production.json
+appsettings.Development.json
+
 # Ignore Rider / JetBrains IDE
 .idea/
 
